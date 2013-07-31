@@ -358,10 +358,14 @@ function drush_omega_export($theme = NULL) {
   $themes = list_themes();
 
   // Insert the theme settings from the database.
-  if (!$settings = variable_get('theme_' . $theme . '_settings')) {
-    if (!drush_confirm(dt('There are no theme settings for @theme stored in the database. Do you want to purge the theme settings from the .info file too?', array('@theme' => $themes[$theme]->info['name'])))) {
-      return;
+  if ($settings = variable_get('theme_' . $theme . '_settings')) {
+    foreach (_system_default_theme_features() as $feature) {
+      // Remove the 'toggle_foobar' elements from the theme settings array.
+      unset($settings['toggle_' . $feature]);
     }
+  }
+  elseif (!drush_confirm(dt('There are no theme settings for @theme stored in the database. Do you want to purge the theme settings from the .info file too?', array('@theme' => $themes[$theme]->info['name'])))) {
+    return;
   }
 
   // Parse the current content of the .info file so we can append the settings
@@ -781,6 +785,27 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
     )));
   }
 
+  // Try to rename (move) the file if the name was changed.
+  $original = basename($path);
+  if (($renamed = preg_replace($search, $replace, $original)) === NULL) {
+    return drush_set_error('REWRITE_FAILURE', dt('There was an error while trying to rewrite !path (!search to !replace)', array(
+      '!path' => $path,
+      '!search' => $search,
+      '!replace' => $replace,
+    )));
+  }
+
+  // Move (rename) if the file or directory name was changed.
+  if ($original !== $renamed) {
+    $new = dirname($path) . "/$renamed";
+    if (!drush_move_dir($path, $new, TRUE)) {
+      return FALSE;
+    };
+
+    // Use the changed path from now on.
+    $path = $new;
+  }
+
   // If the file actually is a directory, proceed with the recursion.
   $directory = new DirectoryIterator($path);
   foreach ($directory as $item) {
@@ -808,24 +833,6 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
       if ($contents !== $changed) {
         file_put_contents($pathname, $changed);
       }
-    }
-
-    // Try to rename (move) the file if the name was changed.
-    $original = basename($pathname);
-    if (($renamed = preg_replace($search, $replace, $original)) === NULL) {
-      return drush_set_error('REWRITE_FAILURE', dt('There was an error while trying to rewrite !path (!search to !replace)', array(
-        '!path' => $path,
-        '!search' => $search,
-        '!replace' => $replace,
-      )));
-    }
-
-    // Move (rename) if the file or directory name was changed.
-    if ($original !== $renamed) {
-      $new = dirname($pathname) . "/$renamed";
-      if (!drush_move_dir($pathname, $new, TRUE)) {
-        return FALSE;
-      };
     }
   }
 

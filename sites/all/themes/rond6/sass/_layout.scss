@@ -10,13 +10,43 @@
 
 // Setting up the Magic Grid
 $total-columns: 12; // 12 columns
-$column-width: 100px; // columns are 4em wide
-$gutter-width: 10px; // with 1em gutters
-$grid-padding: 20px; // and 1em padding on the grid container
+$column-width: 80px; // columns are 4em wide
+$gutter-width: 20px; // with 1em gutters
+$grid-padding: 10px; // and 1em padding on the grid container
 
 
 .l-header,
 .l-main,
 .l-footer {
   @include container;
+}
+
+.two-sidebars {
+  .l-main {
+    .l-region--sidebar-first {
+      @include span-columns(3 omega, 12);
+    }
+    .l-content {
+      @include span-columns(6, 12);
+    }
+    .l-region--sidebar-second {
+      @include span-columns(3 omega, 12);
+    }
+  }
+}
+.sidebar-first {
+  .l-region--sidebar-first {
+      @include span-columns(3 , 12);
+    }
+  .l-content {
+      @include span-columns(9 omega, 12);
+    }
+}
+.sidebar-second {
+  .l-content {
+    @include span-columns(9, 12);
+  }
+  .l-region--sidebar-second {
+      @include span-columns(3 omega , 12);
+    }
 }

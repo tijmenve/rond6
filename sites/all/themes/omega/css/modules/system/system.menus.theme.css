@@ -14,16 +14,16 @@
   /* Menu Item Hierarchy Modifiers */
 }
 .menu .expanded {
-  list-style-image: url('../../../images/misc/menu-expanded.png?1373900331');
+  list-style-image: url('../../../images/misc/menu-expanded.png?1365770950');
   list-style-type: circle;
 }
 .menu .collapsed {
-  list-style-image: url('../../../images/misc/menu-collapsed.png?1373900331');
+  list-style-image: url('../../../images/misc/menu-collapsed.png?1365770950');
   /* LTR */
   list-style-type: disc;
 }
 .menu .leaf {
-  list-style-image: url('../../../images/misc/menu-leaf.png?1373900331');
+  list-style-image: url('../../../images/misc/menu-leaf.png?1365770950');
   list-style-type: square;
 }
 
@@ -47,10 +47,8 @@
   *zoom: 1;
 }
 .links--inline:before, .links--inline:after {
-  content: ".";
-  display: block;
-  height: 0;
-  overflow: hidden;
+  content: "";
+  display: table;
 }
 .links--inline:after {
   clear: both;

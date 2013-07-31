@@ -6,9 +6,9 @@ engine = phptemplate
 core = 7.x
 
 ; Stylesheets
-stylesheets[all][] = css/ohm.normalize.css
-stylesheets[all][] = css/ohm.hacks.css
-stylesheets[all][] = css/ohm.styles.css
+stylesheets[all][] = css/reset.css
+stylesheets[all][] = css/hacks.css
+stylesheets[all][] = css/styles.css
 
 ; Regions
 regions[navigation]     = Navigation bar
@@ -67,9 +67,9 @@ settings[omega_demo_regions_list][sidebar_first] = sidebar_first
 settings[omega_demo_regions_list][sidebar_second] = sidebar_second
 settings[omega_demo_regions_list][footer] = footer
 
-; Information added by drupal.org packaging script on 2013-07-22
-version = "7.x-4.0-beta6+33-dev"
+; Information added by drupal.org packaging script on 2013-07-12
+version = "7.x-4.0-beta6"
 core = "7.x"
 project = "omega"
-datestamp = "1374456776"
+datestamp = "1373658077"
 

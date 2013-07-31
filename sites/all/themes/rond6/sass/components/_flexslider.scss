@@ -1,0 +1,7 @@
+.view-r6-front-slider {
+  .flexslider {
+    @include border-radius(0);
+    @include box-shadow(none);
+    border: 0;
+  }
+}

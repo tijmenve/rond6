@@ -12,3 +12,7 @@
  * before adding any more specific customisations you ensure that as any new
  * features are added they will be correctly styled without any extra work.
  ******************************************************************************/
+
+body {
+  @extend .fontQs;
+}

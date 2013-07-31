@@ -73,8 +73,7 @@ html.js .js-hide {
 /**
  * Use the clearfix from toolkit.
  */
-@import "toolkit-no-css";
-
+@import "toolkit/clearfix";
 .clearfix {
-  @include clearfix(true);
+  @extend %clearfix-micro;
 }
